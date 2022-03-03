@@ -1,6 +1,7 @@
 let books = []
 let cardBooks = []
-
+let filterBooks = []
+ 
 window.onload = () => {
 
 
@@ -20,6 +21,7 @@ window.onload = () => {
 
 displayBooks = (data) => {
    let booksWrapper = document.querySelector('#booksWrapper')
+    booksWrapper.innerHTML = ''
 
    data.forEach(element => {
     booksWrapper.innerHTML +=
@@ -30,7 +32,7 @@ displayBooks = (data) => {
             <h5 class="card-title">${element.title}</h5>
             <p class="card-text">${element.category}</p>
             <a href="#" class="btn btn-primary" onclick="addToCard(event)">Add card</a>
-            <a href="#" class="btn btn-danger">Skip item</a>
+            <a href="#" class="btn btn-danger" onclick="deleteCard(event)">Skip</a>
         </div>
         </div>
         </div>`
@@ -38,14 +40,26 @@ displayBooks = (data) => {
      
 }
 
+deleteCard = (e) => {
+    const id = e.target.closest(".card").id
+
+    let index = books.findIndex((b) => b.asin === id)
+    books.splice(index, 1)
+    displayBooks(books)
+  
+ 
+  
+
+}
+
 addToCard = (e) => {
     const id = e.target.closest(".card").id
-    console.log(id, 'This is asin')
-    let book = books.filter((b) => b.asin === id)[0]
-    console.log(book)
-    cardBooks.push(book)
-    console.log(cardBooks)
 
+    let book = books.filter((b) => b.asin === id)[0]
+
+    cardBooks.push(book)
+  
+    
    showCard()
 }
 
@@ -56,7 +70,7 @@ showCard = () => {
          <div class="card-item mb-2 m-2">
          <h3 class="text-center mb-4">${elem.title}</h3>
          <div class="d-flex align-items-center  justify-content-around">
-         <h5 class="mt-2">700$</h5>
+         <h5 class="mt-2">${elem.price}</h5>
          <button class="btn btn-warning" onclick="deleteFromCardBooks(${elem.asin})">Delete</button>
          </div>
         </div>
@@ -64,8 +78,21 @@ showCard = () => {
     })
 }
 
+function search(word) {
+    
+    searchBook = books.filter((book) =>
+    book.title.toLowerCase().includes(word.toLowerCase())
+    );
+
+  
+    displayBooks(searchBook);
+}
+
+
+
 deleteFromCardBooks = (id) => {
-    console.log(id, 'is deleted')
+
+    console.log(cardBooks)
     let index = books.findIndex(item => item.asin == id)
     cardBooks.splice(index, 1)
     showCard()

@@ -1,0 +1,50 @@
+#booksWrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#inputWrapper {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:antiquewhite;
+    z-index: 1;
+}
+
+.input {
+    display: flex;
+    width: 50%;
+    height: 50px;
+    margin: 2rem;
+    border: 2px solid black;
+    font-size: 24px;
+
+}
+
+.card-section {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: pink;
+    width: 400px;
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.card-icon {
+    width: 4rem;
+    height: 4rem;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50px;
+    
+}
+
+.card-icon:hover .card-section {
+    display: block;
+}
+
+.card-item {
+    border: 2px solid black;
+}
